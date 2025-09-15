@@ -24,6 +24,7 @@ public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier
         
         consumeFuel(distance);
         System.out.println("(Car, ID: "+ this.getId() + ") Driving on road....");
+        this.setMileage(distance+this.getMileage());
         return;
     }
 

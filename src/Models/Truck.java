@@ -23,6 +23,7 @@ public class Truck extends LandVehicle implements FuelConsumable, CargoCarrier, 
         
         consumeFuel(distance);
         System.out.println("(Truck, ID: )" + this.getId() + ") Hauling cargo....");
+        this.setMileage(distance+this.getMileage());
         return;
     }
 

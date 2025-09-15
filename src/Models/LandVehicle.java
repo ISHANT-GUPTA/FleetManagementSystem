@@ -13,5 +13,9 @@ abstract class LandVehicle extends Vehicle{
         return distance/this.getMaxSpeed();
     }
 
+    public int getNumWheels(){
+        return this.numWheels;
+    }
+
 
 }

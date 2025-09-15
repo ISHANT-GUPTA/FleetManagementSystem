@@ -1,11 +1,14 @@
 package FleetManagementSystem.src.management;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import FleetManagementSystem.src.Models.*;
 import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
 import FleetManagementSystem.src.Exceptions.InvalidOperationException;
 import FleetManagementSystem.src.Models.Vehicle;
@@ -109,7 +112,45 @@ public class FleetManager {
         return filteredVehicles;
     }
 
-    
+    public void generateReport(){
+        Map<String, Integer> dict = new HashMap<>();
+        double avgFuelEfficiency = 0;
+        int fuelConsumableCount = 0;
+        double totalMileage = 0;
+        for (Vehicle vehicle : fleet) {
+            String vClass = vehicle.getClass().getSimpleName();
+            dict.put(vClass, dict.getOrDefault(vClass, 0)+1);
+
+            if(!vehicle.getClass().getSimpleName().equals("CargoShip")){
+                avgFuelEfficiency += vehicle.calculateFuelEfficiency();
+                fuelConsumableCount+=1;
+            }
+
+            // if((vehicle.getClass().getSimpleName().equals("CargoShip") && ((CargoShip)vehicle).getSail())){
+            //     avgFuelEfficiency += vehicle.calculateFuelEfficiency();
+            //     fuelConsumableCount+=1;
+            // }
+
+            totalMileage += vehicle.getMileage();
+        }
+        
+        System.out.println("\n=========REPORT==========");
+        for (String vehicleType : dict.keySet()) {
+            System.out.printf("%s: %d\n", vehicleType, dict.get(vehicleType));
+        }
+
+        avgFuelEfficiency = avgFuelEfficiency/fuelConsumableCount;
+        System.out.printf("\nAverage Fuel Efficiency: %.2f\n", avgFuelEfficiency);
+
+        System.out.printf("Total mileage: %.2f\n", totalMileage);
+
+        List<Vehicle> needsMaintainance = this.needingMaintainance();
+        System.out.printf("\nVehicles needing maintainance:");
+        for (Vehicle vehicle : needsMaintainance) {
+            System.out.printf("(%s, ID: %s)\n", vehicle.getClass().getSimpleName(), vehicle.getId());
+        }
+
+    }
 
 
 

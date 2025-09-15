@@ -28,10 +28,12 @@ public class Airplane extends AirVehicle implements FuelConsumable, PassengerCar
         this.setMileage(distance + this.getMileage());
         consumeFuel(distance);
         System.out.println("(Airplane, ID: " + this.getId() + ") Flying at "+Double.toString(this.getMaxAltitude()));
+        this.setMileage(distance+this.getMileage());
+        return;
     }
 
     @Override
-    double calculateFuelEfficiency() {
+    public double calculateFuelEfficiency() {
         return 5;
     }
 

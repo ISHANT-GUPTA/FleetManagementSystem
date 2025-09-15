@@ -27,6 +27,7 @@ public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier
         
         consumeFuel(distance);
         System.out.println("(Bus, ID: )" + this.getId() + ") Transporting passengers and cargo....");
+        this.setMileage(distance+this.getMileage());
         return;
     }   
 

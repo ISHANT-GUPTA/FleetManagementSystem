@@ -16,7 +16,7 @@ public abstract class Vehicle {
     }
 
     public abstract void move(double distance) throws InsufficientFuelException;
-    abstract double calculateFuelEfficiency();
+    abstract public double calculateFuelEfficiency();
     abstract double estimateJourneyTime(double distance);
 
     public void displayInfo(){
@@ -38,6 +38,10 @@ public abstract class Vehicle {
 
     public String getId(){
         return this.id;
+    }
+
+    public String getModel(){
+        return this.model;
     }
     
 }

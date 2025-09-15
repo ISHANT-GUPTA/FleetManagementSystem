@@ -71,6 +71,10 @@ public class Main {
                     manager.maintainAll();
                     System.out.print("Maintained all vehicles.");
                     break;
+
+                case 6:
+                    manager.generateReport();
+                    break;
             
                 case 9:
                     System.out.print("Enter type of vehicle: ");
@@ -92,12 +96,15 @@ public class Main {
                     for (Vehicle vehicle : vTypeList) {
                         System.out.printf("ID: %s\n", vehicle.getId());
                     }
+                    break;
 
                 case 10:
                     List<Vehicle> maintainanceNeeded = manager.needingMaintainance();
                     for (Vehicle vehicle : maintainanceNeeded) {
                         System.out.println("("+vehicle.getClass().getSimpleName()+", ID: "+vehicle.getId()+")");
                     }
+                    break;
+        
                 default:
                     break;
             }
