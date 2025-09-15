@@ -1,18 +1,15 @@
 package FleetManagementSystem.src;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
 import FleetManagementSystem.src.Exceptions.InvalidOperationException;
-import FleetManagementSystem.src.Models.Bus;
-import FleetManagementSystem.src.Models.Car;
-import FleetManagementSystem.src.Models.Truck;
 import FleetManagementSystem.src.management.FleetManager;
 import FleetManagementSystem.src.management.VehicleFactory;
 import FleetManagementSystem.src.Models.Vehicle;
-import FleetManagementSystem.src.management.VehicleFactory.*;
 
 public class Main {
     public static void main(String args[]) throws InvalidOperationException, InsufficientFuelException{
@@ -75,6 +72,12 @@ public class Main {
                 case 6:
                     manager.generateReport();
                     break;
+
+                case 7:
+                    System.out.print("Enter csv filename to save: ");
+                    String filename = input.nextLine();
+                    manager.saveToFile(filename);
+                    break;
             
                 case 9:
                     System.out.print("Enter type of vehicle: ");
@@ -112,76 +115,31 @@ public class Main {
     }
 
     public static void createVehicle(String type, FleetManager manager, Scanner input) throws InvalidOperationException {
-        switch (type.toLowerCase()) {
-            case "car":
-                manager.addVehicle(VehicleFactory.createCar(input));
-                break;
-            case "truck":
-                manager.addVehicle(VehicleFactory.createTruck(input));
-                break;
-            case "bus":
-                manager.addVehicle(VehicleFactory.createBus(input));
-                break;
-            default:
-                throw new InvalidOperationException("Unknown vehicle type: " + type);
+        try{
+            switch (type.toLowerCase()) {
+                case "car":
+                    manager.addVehicle(VehicleFactory.createCar(input));
+                    break;
+                case "truck":
+                    manager.addVehicle(VehicleFactory.createTruck(input));
+                    break;
+                case "bus":
+                    manager.addVehicle(VehicleFactory.createBus(input));
+                    break;
+                case "airplane":
+                    manager.addVehicle(VehicleFactory.creatAirplane(input));
+                    break;
+                case "cargoship":
+                    manager.addVehicle(VehicleFactory.createCargoShip(input));
+                    break;
+                default:
+                    throw new InvalidOperationException("Unknown vehicle type: " + type);
+            }
+        } catch(InputMismatchException mismatchException){
+            System.out.println(mismatchException.getMessage());
+        } catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
-
-
-    // public static void createVehicle(String type, FleetManager manager, Scanner input) throws InvalidOperationException{
-    //     switch (type) {
-    //         case "car":
-    //             System.out.print("Enter id, model, maxSpeed, numWheels, currentMileage, currentPassengers separated by spaces: ");
-    //             String carId = input.next();
-    //             String carModel = input.next();
-    //             double carMaxSpeed = input.nextDouble();
-    //             int carNumWheels = input.nextInt();
-    //             double carCurrentMileage = input.nextDouble();
-    //             int carCurrentPassengers = input.nextInt();
-    //             input.nextLine();
-    //             Car car = new Car(carId, carModel, carMaxSpeed, carNumWheels, carCurrentMileage, carCurrentPassengers);
-    //             manager.addVehicle(car);
-    //             // return car;
-    //             break;
-            
-    //         case "truck":
-    //             System.out.println("Enter id, model, maxSpeed, numWheels separated by spaces");
-    //             String truckId = input.next();
-    //             String truckModel = input.next();
-    //             double truckMaxSpeed = input.nextDouble();
-    //             int truckNumWheels = input.nextInt();
-    //             double truckCurrentMileage = input.nextDouble();
-    //             double truckCurrentCargo = input.nextDouble();
-    //             input.nextLine();
-    //             Truck truck = new Truck(truckId, truckModel, truckMaxSpeed, truckNumWheels, truckCurrentMileage, truckCurrentCargo);
-    //             manager.addVehicle(truck);
-    //             // return truck;
-    //             break;
-
-    //         case "bus":
-    //             System.out.println("Enter id, model, maxSpeed, numWheels, currentMileage, currentPassengers, currentCargo separated by spaces");
-    //             String busId = input.next();
-    //             String busModel = input.next();
-    //             double busMaxSpeed = input.nextDouble();
-    //             int busNumWheels = input.nextInt();
-    //             double busCurrentMileage = input.nextDouble();
-    //             int busCurrentPassengers = input.nextInt();
-    //             double busCurrentCargo = input.nextDouble();
-
-    //             input.nextLine();
-    //             Bus bus = new Bus(busId, busModel, busMaxSpeed, busNumWheels, busCurrentMileage, busCurrentPassengers, busCurrentCargo);
-    //             manager.addVehicle(bus);
-    //             // return bus;
-    //             break;
-
-    //         case "airplane":
-    //             System.out.println("Enter id, model, maxSpeed, numWheels, passengerCapacity, cargoCapacity separated by spaces");
-
-    //         default:
-    //             System.out.println(type);
-    //             throw new InvalidOperationException("The specified type of vehicle does not exist!");
-    //             // break;
-    //     }
-    // }
 
 }

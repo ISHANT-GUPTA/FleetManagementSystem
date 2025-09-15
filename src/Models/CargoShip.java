@@ -13,8 +13,9 @@ public class CargoShip extends WaterVehicle implements CargoCarrier, Maintainabl
     private double currentCargo;
     private boolean maintenanceNeeded;
 
-    public CargoShip(String id, String model, double maxSpeed, double currentMileage, boolean hasSail){
+    public CargoShip(String id, String model, double maxSpeed, double currentMileage, boolean hasSail, double currentCargo){
         super(id, model, maxSpeed, currentMileage, hasSail);
+        this.currentCargo = currentCargo;
     }
 
     @Override

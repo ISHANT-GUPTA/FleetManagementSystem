@@ -7,11 +7,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
+import FleetManagementSystem.src.management.ToFromCSV;
 import FleetManagementSystem.src.Models.*;
 import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
 import FleetManagementSystem.src.Exceptions.InvalidOperationException;
-import FleetManagementSystem.src.Models.Vehicle;
+// import FleetManagementSystem.src.Models.Vehicle;
 import FleetManagementSystem.src.interfaces.FuelConsumable;
 import FleetManagementSystem.src.interfaces.Maintainable;
 
@@ -86,7 +90,6 @@ public class FleetManager {
             }
         }
 
-        System.out.println("Maintained " + Integer.toString(count) + " Vehicles");
     }
 
     public List<Vehicle> needingMaintainance(){
@@ -121,15 +124,8 @@ public class FleetManager {
             String vClass = vehicle.getClass().getSimpleName();
             dict.put(vClass, dict.getOrDefault(vClass, 0)+1);
 
-            if(!vehicle.getClass().getSimpleName().equals("CargoShip")){
-                avgFuelEfficiency += vehicle.calculateFuelEfficiency();
-                fuelConsumableCount+=1;
-            }
-
-            // if((vehicle.getClass().getSimpleName().equals("CargoShip") && ((CargoShip)vehicle).getSail())){
-            //     avgFuelEfficiency += vehicle.calculateFuelEfficiency();
-            //     fuelConsumableCount+=1;
-            // }
+            avgFuelEfficiency += vehicle.calculateFuelEfficiency();
+            fuelConsumableCount+=1;
 
             totalMileage += vehicle.getMileage();
         }
@@ -145,7 +141,7 @@ public class FleetManager {
         System.out.printf("Total mileage: %.2f\n", totalMileage);
 
         List<Vehicle> needsMaintainance = this.needingMaintainance();
-        System.out.printf("\nVehicles needing maintainance:");
+        System.out.printf("\nVehicles needing maintainance:\n");
         for (Vehicle vehicle : needsMaintainance) {
             System.out.printf("(%s, ID: %s)\n", vehicle.getClass().getSimpleName(), vehicle.getId());
         }
@@ -156,22 +152,14 @@ public class FleetManager {
 
     // Persistance
 
-    public void saveToFile(String filename){
-        try (Scanner file = new Scanner(new File(filename)) ){
-            for (Vehicle vehicle : fleet) {
-                String vehicleClass = vehicle.getClass().getSimpleName();
-                switch (vehicleClass) {
-                    case "Car":
-                        
-                        break;
-                
-                    default:
-                        break;
-                }
+    public void saveToFile(String filename) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(filename))) {
+            for (Vehicle v : this.fleet) {
+                pw.println(ToFromCSV.toCSV(v));
             }
-
-        } catch (FileNotFoundException e){
-            System.out.printf("File %s does not exist in the directory of Main!", filename);
+            System.out.println("Fleet saved to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error saving fleet: " + e.getMessage());
         }
     }
 }

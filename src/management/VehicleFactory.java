@@ -41,4 +41,29 @@ public class VehicleFactory {
             input.nextDouble()
         );
     }
+
+    public static Airplane creatAirplane(Scanner input){
+        System.out.print("Enter id, model, maxSpeed, currentMileage, maxAltitude, currentPassengers, currentCargo separated by spaces: ");
+        return new Airplane(
+            input.next(),
+            input.next(),
+            input.nextDouble(),
+            input.nextDouble(),
+            input.nextDouble(),
+            input.nextInt(),
+            input.nextDouble()
+        );
+    }
+
+    public static CargoShip createCargoShip(Scanner input){
+        System.out.print("Enter id, model, maxSpeed, currentMileage, hasSail, currentCargo separated by spaces: ");
+        return new CargoShip(
+            input.next(),
+            input.next(),
+            input.nextDouble(),
+            input.nextDouble(),
+            input.nextBoolean(),
+            input.nextDouble()
+        );
+    }
 }
