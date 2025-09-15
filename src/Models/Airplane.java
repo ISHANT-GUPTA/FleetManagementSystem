@@ -25,7 +25,7 @@ public class Airplane extends AirVehicle implements FuelConsumable, PassengerCar
     public void move(double distance) throws InsufficientFuelException {
         this.setMileage(distance + this.getMileage());
         consumeFuel(distance);
-        System.out.println("Flying at "+Double.toString(this.getMaxAltitude()));
+        System.out.println("(Airplane, ID: " + this.getId() + ") Flying at "+Double.toString(this.getMaxAltitude()));
     }
 
     @Override
@@ -53,7 +53,8 @@ public class Airplane extends AirVehicle implements FuelConsumable, PassengerCar
     
     @Override
     public void refuel(double amount) {
-        
+        this.fuelLevel += amount;
+        System.out.println("(Airplane, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
     }
 
 

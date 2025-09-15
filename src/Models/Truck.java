@@ -21,7 +21,7 @@ public class Truck extends LandVehicle implements FuelConsumable, CargoCarrier, 
     public void move(double distance) throws InsufficientFuelException{
         
         consumeFuel(distance);
-        System.out.println("Hauling cargo....");
+        System.out.println("(Truck, ID: )" + this.getId() + ") Hauling cargo....");
         return;
     }
 
@@ -58,7 +58,8 @@ public class Truck extends LandVehicle implements FuelConsumable, CargoCarrier, 
 
     @Override
     public void refuel(double amount) {
-        
+        this.fuelLevel += amount;
+        System.out.println("(Truck, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
     }
 
     // CargoCarrier interface methods implementation

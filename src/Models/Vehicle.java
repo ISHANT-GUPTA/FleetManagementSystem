@@ -23,6 +23,10 @@ public abstract class Vehicle {
 
     }
 
+    public double getMaxSpeed(){
+        return this.maxSpeed;
+    }
+
     public double getMileage(){
         return this.currentMileage;
     }

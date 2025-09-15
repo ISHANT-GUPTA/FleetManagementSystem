@@ -10,6 +10,6 @@ abstract class WaterVehicle extends Vehicle{
 
     @Override
     public double estimateJourneyTime(double distance){
-        
+        return distance/this.getMaxSpeed();
     }
 }

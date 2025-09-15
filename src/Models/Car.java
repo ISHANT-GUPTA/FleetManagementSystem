@@ -22,7 +22,7 @@ public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier
     public void move(double distance) throws InsufficientFuelException{
         
         consumeFuel(distance);
-        System.out.println("Driving on road....");
+        System.out.println("(Car, ID: "+ this.getId() + ") Driving on road....");
         return;
     }
 
@@ -51,7 +51,8 @@ public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier
     
     @Override
     public void refuel(double amount) {
-        
+        this.fuelLevel += amount;
+        System.out.println("(Car, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
     }
 
     // PassengerCarrier interface methods implementation

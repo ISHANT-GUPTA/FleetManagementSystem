@@ -1,5 +1,7 @@
 package FleetManagementSystem.src;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
@@ -14,6 +16,7 @@ public class Main {
     public static void main(String args[]) throws InvalidOperationException, InsufficientFuelException{
 
         FleetManager manager = new FleetManager();
+        String FleetModelsPackage = "FleetManagementSystem.src.Models";
 
         while (true) {
             System.out.println("1. Add Vehicle");
@@ -28,15 +31,18 @@ public class Main {
             System.out.println("10. List Vehicles Needing Maintenance");
             System.out.println("11. Exit");
 
+            System.out.print("\nEnter your choice: ");
             Scanner input = new Scanner(System.in);
+            // input.useDelimiter("\n");
+
             int selection = input.nextInt();
+            input.nextLine();
 
             switch (selection) {
                 case 1:
                     System.out.print("Enter type of vehicle: ");
                     String type = input.nextLine().toLowerCase();
-                    input.nextLine();
-                    Vehicle v = createVehicle(type, manager, input);
+                    createVehicle(type, manager, input);
                     break;
 
                 case 2:
@@ -50,7 +56,45 @@ public class Main {
                     double journeyDistance = input.nextDouble();
                     manager.startAllJourneys(journeyDistance);
                     break;
+
+                case 4: 
+                    System.out.print("Enter fuel amount: ");
+                    double refuelAmount = input.nextDouble();
+                    input.nextLine();
+                    manager.refuelAll(refuelAmount);
+                    break;
+
+                case 5:
+                    manager.maintainAll();
+                    System.out.print("Maintained all vehicles.");
+                    break;
             
+                case 9:
+                    System.out.print("Enter type of vehicle: ");
+                    String inp = input.nextLine().toLowerCase();
+                    String simpleClassName = inp.substring(0, 1).toUpperCase() + inp.substring(1);
+
+                    String className = FleetModelsPackage+"."+simpleClassName;
+                    System.out.println(className);
+
+                    Class<?> vClass = null;
+                    try{
+                        vClass = Class.forName(className);
+                    } catch(ClassNotFoundException e){
+                        System.out.println("Class not found: " + className);
+                    }
+                    
+                    List<Vehicle> vTypeList = manager.searchByType(vClass);
+                    System.out.printf("\nVehicles of type %s:\n", inp);
+                    for (Vehicle vehicle : vTypeList) {
+                        System.out.printf("ID: %s\n", vehicle.getId());
+                    }
+
+                case 10:
+                    List<Vehicle> maintainanceNeeded = manager.needingMaintainance();
+                    for (Vehicle vehicle : maintainanceNeeded) {
+                        System.out.println("("+vehicle.getClass().getSimpleName()+", ID: "+vehicle.getId()+")");
+                    }
                 default:
                     break;
             }
@@ -58,7 +102,7 @@ public class Main {
     }
 
 
-    public static Vehicle createVehicle(String type, FleetManager manager, Scanner input) throws InvalidOperationException{
+    public static void createVehicle(String type, FleetManager manager, Scanner input) throws InvalidOperationException{
         switch (type) {
             case "car":
                 System.out.print("Enter id, model, maxSpeed, numWheels separated by spaces: ");
@@ -69,8 +113,8 @@ public class Main {
                 input.nextLine();
                 Car car = new Car(carId, carModel, carMaxSpeed, carNumWheels);
                 manager.addVehicle(car);
-                return car;
-                // break;
+                // return car;
+                break;
             
             case "truck":
                 System.out.println("Enter id, model, maxSpeed, numWheels separated by spaces");
@@ -81,8 +125,8 @@ public class Main {
                 input.nextLine();
                 Truck truck = new Truck(truckId, truckModel, truckMaxSpeed, truckNumWheels);
                 manager.addVehicle(truck);
-                return truck;
-                // break;
+                // return truck;
+                break;
 
             case "bus":
                 System.out.println("Enter id, model, maxSpeed, numWheels, passengerCapacity, cargoCapacity separated by spaces");
@@ -96,13 +140,14 @@ public class Main {
                 input.nextLine();
                 Bus bus = new Bus(busId, busModel, busMaxSpeed, busNumWheels, busPassengerCapacity, busCargoCapacity);
                 manager.addVehicle(bus);
-                return bus;
-                // break;
+                // return bus;
+                break;
 
             case "airplane":
                 System.out.println("Enter id, model, maxSpeed, numWheels, passengerCapacity, cargoCapacity separated by spaces");
 
             default:
+                System.out.println(type);
                 throw new InvalidOperationException("The specified type of vehicle does not exist!");
                 // break;
         }

@@ -26,7 +26,7 @@ public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier
     public void move(double distance) throws InsufficientFuelException{
         
         consumeFuel(distance);
-        System.out.println("Transporting passengers and cargo....");
+        System.out.println("(Bus, ID: )" + this.getId() + ") Transporting passengers and cargo....");
         return;
     }   
 
@@ -54,7 +54,8 @@ public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier
     
     @Override
     public void refuel(double amount) {
-        
+        this.fuelLevel += amount;
+        System.out.println("(Bus, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
     }
 
 

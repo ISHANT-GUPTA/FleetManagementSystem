@@ -10,7 +10,7 @@ abstract class LandVehicle extends Vehicle{
 
     @Override
     public double estimateJourneyTime(double distance){
-        
+        return distance/this.getMaxSpeed();
     }
 
 

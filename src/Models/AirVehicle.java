@@ -13,7 +13,7 @@ abstract class AirVehicle extends Vehicle{
     }
 
     @Override
-    public estimateJourneyTime(double distance){
-        
+    public double estimateJourneyTime(double distance){
+        return distance/this.getMaxSpeed();
     }
 }

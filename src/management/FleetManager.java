@@ -2,6 +2,9 @@ package FleetManagementSystem.src.management;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
 import FleetManagementSystem.src.Exceptions.InvalidOperationException;
@@ -58,6 +61,17 @@ public class FleetManager {
         return totalConsumption;
     }
 
+    public void refuelAll(double amount) throws InvalidOperationException{
+        if(amount <= 0){
+            throw new InvalidOperationException("Cannot refuel "+Double.toString(amount)+" litres");
+        }
+        for (Vehicle vehicle : fleet){
+            if(vehicle instanceof FuelConsumable){
+                ((FuelConsumable)vehicle).refuel(amount);
+            }
+        }
+    }
+
     public void maintainAll(){
         int count = 0;
         for (Vehicle vehicle : fleet) {
@@ -72,6 +86,18 @@ public class FleetManager {
         System.out.println("Maintained " + Integer.toString(count) + " Vehicles");
     }
 
+    public List<Vehicle> needingMaintainance(){
+        List<Vehicle> lst = new ArrayList<>();
+        for (Vehicle vehicle : fleet) {
+            if (vehicle instanceof Maintainable){
+                Maintainable v = (Maintainable)vehicle;
+                if(v.needsMaintenance()) lst.add(vehicle);
+            }
+        }
+
+        return lst;
+    }
+
     public List<Vehicle> searchByType(Class<?> type){
         List<Vehicle> filteredVehicles = new ArrayList<>();
         for (Vehicle vehicle : fleet) {
@@ -83,5 +109,26 @@ public class FleetManager {
         return filteredVehicles;
     }
 
-    // public void sortFleetByEfficiency()
+
+
+    // Persistance
+
+    public void saveToFile(String filename){
+        try (Scanner file = new Scanner(new File(filename)) ){
+            for (Vehicle vehicle : fleet) {
+                String vehicleClass = vehicle.getClass().getSimpleName();
+                switch (vehicleClass) {
+                    case "Car":
+                        
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
+
+        } catch (FileNotFoundException e){
+            System.out.printf("File %s does not exist in the directory of Main!", filename);
+        }
+    }
 }
