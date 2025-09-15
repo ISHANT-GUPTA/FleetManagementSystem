@@ -8,10 +8,11 @@ public abstract class Vehicle {
     private double maxSpeed;
     private double currentMileage;
 
-    public Vehicle(String id, String model, double maxSpeed){
+    public Vehicle(String id, String model, double maxSpeed, double currentMileage){
         this.id = id;
         this.model = model;
         this.maxSpeed = maxSpeed;
+        this.currentMileage = currentMileage;
     }
 
     public abstract void move(double distance) throws InsufficientFuelException;

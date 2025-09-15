@@ -14,8 +14,9 @@ public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier
     private int currentPassengers;
     private boolean maintenanceNeeded;
 
-    public Car(String id, String model, double maxSpeed, int numWheels){
-        super(id, model, maxSpeed, numWheels);
+    public Car(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers){
+        super(id, model, maxSpeed, numWheels, currentMileage);
+        this.currentPassengers = currentPassengers;
     }
     
     @Override
@@ -52,7 +53,7 @@ public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier
     @Override
     public void refuel(double amount) {
         this.fuelLevel += amount;
-        System.out.println("(Car, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
+        System.out.println("(Car, ID: "+this.getId()+") Refuelled " +Double.toString(amount)+" litres.");
     }
 
     // PassengerCarrier interface methods implementation

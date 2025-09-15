@@ -17,8 +17,10 @@ public class Airplane extends AirVehicle implements FuelConsumable, PassengerCar
     private double currentCargo;
     private boolean maintenanceNeeded;
 
-    public Airplane(String id, String model, String maxSpeed, double maxAltitude){
-        super(id, model, maxSpeed, maxAltitude);
+    public Airplane(String id, String model, double maxSpeed, double currentMileage, double maxAltitude, int currentPassengers, double currentCargo){
+        super(id, model, maxSpeed, currentMileage, maxAltitude);
+        this.currentPassengers = currentPassengers;
+        this.currentCargo = currentCargo;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class Airplane extends AirVehicle implements FuelConsumable, PassengerCar
     @Override
     public void refuel(double amount) {
         this.fuelLevel += amount;
-        System.out.println("(Airplane, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
+        System.out.println("(Airplane, ID: "+this.getId()+") Refuelled "+Double.toString(amount)+" litres.");
     }
 
 

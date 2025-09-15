@@ -13,8 +13,9 @@ public class Truck extends LandVehicle implements FuelConsumable, CargoCarrier, 
     private double currentCargo;
     private boolean maintenanceNeeded;
 
-    public Truck(String id, String model, double maxSpeed, int numWheels){
-        super(id, model, maxSpeed, numWheels);
+    public Truck(String id, String model, double maxSpeed, int numWheels, double currentMileage, double currentCargo){
+        super(id, model, maxSpeed, numWheels, currentMileage);
+        this.currentCargo = currentCargo;
     }
     
     @Override
@@ -59,7 +60,7 @@ public class Truck extends LandVehicle implements FuelConsumable, CargoCarrier, 
     @Override
     public void refuel(double amount) {
         this.fuelLevel += amount;
-        System.out.println("(Truck, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
+        System.out.println("(Truck, ID: "+this.getId()+") Refuelled "+Double.toString(amount)+" litres.");
     }
 
     // CargoCarrier interface methods implementation

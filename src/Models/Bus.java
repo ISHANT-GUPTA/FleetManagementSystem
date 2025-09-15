@@ -16,10 +16,10 @@ public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier
     private double currentCargo;
     private boolean maintenanceNeeded;
 
-    public Bus(String id, String model, double maxSpeed, int numWheels, int passengerCapacity, double cargoCapacity){
-        super(id, model, maxSpeed, numWheels);
-        this.passengerCapacity = passengerCapacity;
-        this.cargoCapacity = cargoCapacity;
+    public Bus(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers, double currentCargo){
+        super(id, model, maxSpeed, numWheels, currentMileage);
+        this.currentPassengers = currentPassengers;
+        this.currentCargo = currentCargo;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier
     @Override
     public void refuel(double amount) {
         this.fuelLevel += amount;
-        System.out.println("(Bus, ID: "+this.getId()+") Refuelled"+Double.toString(amount)+" litres.");
+        System.out.println("(Bus, ID: "+this.getId()+") Refuelled "+Double.toString(amount)+" litres.");
     }
 
 
