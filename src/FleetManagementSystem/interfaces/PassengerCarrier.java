@@ -1,7 +1,7 @@
-package FleetManagementSystem.src.interfaces;
+package FleetManagementSystem.interfaces;
 
-import FleetManagementSystem.src.Exceptions.InvalidOperationException;
-import FleetManagementSystem.src.Exceptions.OverloadException;
+import FleetManagementSystem.Exceptions.InvalidOperationException;
+import FleetManagementSystem.Exceptions.OverloadException;
 
 public interface PassengerCarrier {
     void boardPassengers(int count) throws OverloadException;

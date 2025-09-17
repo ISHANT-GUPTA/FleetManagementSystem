@@ -1,15 +1,14 @@
-package FleetManagementSystem.src;
+package FleetManagementSystem;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
-import FleetManagementSystem.src.Exceptions.InvalidOperationException;
-import FleetManagementSystem.src.management.FleetManager;
-import FleetManagementSystem.src.management.VehicleFactory;
-import FleetManagementSystem.src.Models.*;
+import FleetManagementSystem.Exceptions.InsufficientFuelException;
+import FleetManagementSystem.Exceptions.InvalidOperationException;
+import FleetManagementSystem.management.FleetManager;
+import FleetManagementSystem.management.VehicleFactory;
+import FleetManagementSystem.Models.*;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package FleetManagementSystem.src.Models;
+package FleetManagementSystem.Models;
 
 abstract class AirVehicle extends Vehicle{
     private double maxAltitude;

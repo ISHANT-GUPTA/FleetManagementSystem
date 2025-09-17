@@ -1,12 +1,12 @@
-package FleetManagementSystem.src.Models;
+package FleetManagementSystem.Models;
 
-import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
-import FleetManagementSystem.src.Exceptions.InvalidOperationException;
-import FleetManagementSystem.src.Exceptions.OverloadException;
-import FleetManagementSystem.src.interfaces.CargoCarrier;
-import FleetManagementSystem.src.interfaces.FuelConsumable;
-import FleetManagementSystem.src.interfaces.Maintainable;
-import FleetManagementSystem.src.interfaces.PassengerCarrier;
+import FleetManagementSystem.Exceptions.InsufficientFuelException;
+import FleetManagementSystem.Exceptions.InvalidOperationException;
+import FleetManagementSystem.Exceptions.OverloadException;
+import FleetManagementSystem.interfaces.CargoCarrier;
+import FleetManagementSystem.interfaces.FuelConsumable;
+import FleetManagementSystem.interfaces.Maintainable;
+import FleetManagementSystem.interfaces.PassengerCarrier;
 
 public class Airplane extends AirVehicle implements FuelConsumable, PassengerCarrier, CargoCarrier, Maintainable{
 

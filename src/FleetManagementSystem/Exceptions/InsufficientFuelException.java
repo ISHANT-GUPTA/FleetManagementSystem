@@ -1,4 +1,4 @@
-package FleetManagementSystem.src.Exceptions;
+package FleetManagementSystem.Exceptions;
 
 public class InsufficientFuelException extends Exception{
     public InsufficientFuelException(String message){

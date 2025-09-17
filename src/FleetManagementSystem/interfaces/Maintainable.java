@@ -1,4 +1,4 @@
-package FleetManagementSystem.src.interfaces;
+package FleetManagementSystem.interfaces;
 
 public interface Maintainable {
 

@@ -1,9 +1,9 @@
-package FleetManagementSystem.src.management;
+package FleetManagementSystem.management;
 
 import java.util.Scanner;
 
-import FleetManagementSystem.src.Exceptions.*;
-import FleetManagementSystem.src.Models.*;
+import FleetManagementSystem.Exceptions.*;
+import FleetManagementSystem.Models.*;
 
 public class VehicleFactory {
 

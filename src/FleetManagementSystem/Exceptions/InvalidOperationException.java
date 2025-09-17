@@ -1,4 +1,4 @@
-package FleetManagementSystem.src.Exceptions;
+package FleetManagementSystem.Exceptions;
 public class InvalidOperationException extends Exception{
     public InvalidOperationException(String message){
         super(message);

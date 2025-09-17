@@ -1,4 +1,4 @@
-package FleetManagementSystem.src.management;
+package FleetManagementSystem.management;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +11,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import FleetManagementSystem.src.Models.*;
-import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
-import FleetManagementSystem.src.Exceptions.InvalidOperationException;
+import FleetManagementSystem.Models.*;
+import FleetManagementSystem.Exceptions.InsufficientFuelException;
+import FleetManagementSystem.Exceptions.InvalidOperationException;
 // import FleetManagementSystem.src.Models.Vehicle;
-import FleetManagementSystem.src.interfaces.FuelConsumable;
-import FleetManagementSystem.src.interfaces.Maintainable;
+import FleetManagementSystem.interfaces.FuelConsumable;
+import FleetManagementSystem.interfaces.Maintainable;
 
 public class FleetManager {
     private ArrayList<Vehicle> fleet;

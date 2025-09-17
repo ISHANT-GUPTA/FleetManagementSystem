@@ -1,6 +1,6 @@
-package FleetManagementSystem.src.management;
+package FleetManagementSystem.management;
 
-import FleetManagementSystem.src.Models.*;
+import FleetManagementSystem.Models.*;
 
 public class ToFromCSV {
 

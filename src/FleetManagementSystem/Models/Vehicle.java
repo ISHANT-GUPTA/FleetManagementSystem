@@ -1,6 +1,6 @@
-package FleetManagementSystem.src.Models;
+package FleetManagementSystem.Models;
 
-import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
+import FleetManagementSystem.Exceptions.InsufficientFuelException;
 import java.lang.Comparable;
 public abstract class Vehicle implements Comparable<Vehicle>{
     private String id;

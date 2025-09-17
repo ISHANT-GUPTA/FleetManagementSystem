@@ -1,6 +1,6 @@
-package FleetManagementSystem.src.interfaces;
+package FleetManagementSystem.interfaces;
 
-import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
+import FleetManagementSystem.Exceptions.InsufficientFuelException;
 
 public interface FuelConsumable {
 
