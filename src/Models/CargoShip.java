@@ -8,14 +8,14 @@ import FleetManagementSystem.src.interfaces.FuelConsumable;
 import FleetManagementSystem.src.interfaces.Maintainable;
 
 public class CargoShip extends WaterVehicle implements CargoCarrier, Maintainable, FuelConsumable{
-    private double fuelLevel;
+    private double fuelLevel=0;
     private double cargoCapacity = 50000;
-    private double currentCargo;
+    private double currentCargo=0;
     private boolean maintenanceNeeded;
 
-    public CargoShip(String id, String model, double maxSpeed, double currentMileage, boolean hasSail, double currentCargo){
+    public CargoShip(String id, String model, double maxSpeed, double currentMileage, boolean hasSail, double currentCargo) throws OverloadException{
         super(id, model, maxSpeed, currentMileage, hasSail);
-        this.currentCargo = currentCargo;
+        loadCargo(currentCargo);
     }
 
     @Override
@@ -48,8 +48,10 @@ public class CargoShip extends WaterVehicle implements CargoCarrier, Maintainabl
     public double consumeFuel(double distance) throws InsufficientFuelException {
         if(!this.getSail()){
             double requiredFuel = distance/calculateFuelEfficiency();
-            if(requiredFuel > this.fuelLevel) throw new InsufficientFuelException("Ship has insufficient fuel for the journey");
-            else{
+            if(requiredFuel > this.fuelLevel){
+                String message = String.format("(CargoShip, ID: %s) has insufficient fuel for the journey!\n", this.getId());
+                throw new InsufficientFuelException(message);
+            } else{
                 this.fuelLevel -= requiredFuel;
                 return requiredFuel;
             }      
@@ -62,7 +64,7 @@ public class CargoShip extends WaterVehicle implements CargoCarrier, Maintainabl
     public void refuel(double amount) {
         if(!this.getSail()){
             this.fuelLevel += amount;
-            System.out.println("(Car, ID: "+this.getId()+") Refuelled " +Double.toString(amount)+" litres.");
+            System.out.println("(CargoShip, ID: "+this.getId()+") Refuelled " +Double.toString(amount)+" litres.");
         }
         return;
     }

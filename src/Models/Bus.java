@@ -11,15 +11,15 @@ import FleetManagementSystem.src.interfaces.PassengerCarrier;
 public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier, CargoCarrier, Maintainable{
     private double fuelLevel = 0;
     private int passengerCapacity = 50;
-    private int currentPassengers;
+    private int currentPassengers = 0;
     private double cargoCapacity = 500;
-    private double currentCargo;
+    private double currentCargo = 0;
     private boolean maintenanceNeeded;
 
-    public Bus(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers, double currentCargo){
+    public Bus(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers, double currentCargo) throws OverloadException{
         super(id, model, maxSpeed, numWheels, currentMileage);
-        this.currentPassengers = currentPassengers;
-        this.currentCargo = currentCargo;
+        boardPassengers(currentPassengers);
+        loadCargo(currentCargo);
     }
 
     @Override
@@ -46,8 +46,10 @@ public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier
     @Override
     public double consumeFuel(double distance) throws InsufficientFuelException{
         double requiredFuel = distance/calculateFuelEfficiency();
-        if(requiredFuel > this.fuelLevel) throw new InsufficientFuelException("Car has insufficient fuel for the journey");
-        else{
+        if(requiredFuel > this.fuelLevel){
+            String message = String.format("(Bus, ID: %s) has insufficient fuel for the journey!\n", this.getId());
+            throw new InsufficientFuelException(message);
+        } else{
             this.fuelLevel -= requiredFuel;
             return requiredFuel;
         }

@@ -1,17 +1,16 @@
 package FleetManagementSystem.src.management;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import FleetManagementSystem.src.management.ToFromCSV;
 import FleetManagementSystem.src.Models.*;
 import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
 import FleetManagementSystem.src.Exceptions.InvalidOperationException;
@@ -80,7 +79,6 @@ public class FleetManager {
     }
 
     public void maintainAll(){
-        int count = 0;
         for (Vehicle vehicle : fleet) {
             if(vehicle instanceof Maintainable){
                 Maintainable v = (Maintainable)vehicle;
@@ -113,6 +111,10 @@ public class FleetManager {
         }
 
         return filteredVehicles;
+    }
+
+    public void sortFleetByEfficiency(){
+        Collections.sort(this.fleet);
     }
 
     public void generateReport(){
@@ -162,4 +164,20 @@ public class FleetManager {
             System.out.println("Error saving fleet: " + e.getMessage());
         }
     }
+
+    public void loadFromFile(String filename) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            fleet.clear();
+            while ((line = br.readLine()) != null) {
+                Vehicle v = ToFromCSV.fromCSV(line);
+                if (v != null) fleet.add(v);
+            }
+            System.out.println("loaded fleet from " + filename);
+        } catch (IOException e) {
+            System.out.println("Error loading fleet: " + e.getMessage());
+        }
+    }
+
+
 }

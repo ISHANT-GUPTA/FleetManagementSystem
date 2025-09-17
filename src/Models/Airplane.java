@@ -10,17 +10,17 @@ import FleetManagementSystem.src.interfaces.PassengerCarrier;
 
 public class Airplane extends AirVehicle implements FuelConsumable, PassengerCarrier, CargoCarrier, Maintainable{
 
-    private double fuelLevel;
+    private double fuelLevel=0;
     private int passengerCapacity = 200;
-    private int currentPassengers;
-    private double cargoCapacity;
-    private double currentCargo;
+    private int currentPassengers=0;
+    private double cargoCapacity = 10000;
+    private double currentCargo=0;
     private boolean maintenanceNeeded;
 
-    public Airplane(String id, String model, double maxSpeed, double currentMileage, double maxAltitude, int currentPassengers, double currentCargo){
+    public Airplane(String id, String model, double maxSpeed, double currentMileage, double maxAltitude, int currentPassengers, double currentCargo) throws OverloadException{
         super(id, model, maxSpeed, currentMileage, maxAltitude);
-        this.currentPassengers = currentPassengers;
-        this.currentCargo = currentCargo;
+        boardPassengers(currentPassengers);
+        loadCargo(currentCargo);
     }
 
     @Override
@@ -48,8 +48,11 @@ public class Airplane extends AirVehicle implements FuelConsumable, PassengerCar
     @Override
     public double consumeFuel(double distance) throws InsufficientFuelException{
         double requiredFuel = distance/calculateFuelEfficiency();
-        if(requiredFuel > this.fuelLevel) throw new InsufficientFuelException("Aircraft has insufficient fuel for the journey");
-        else{
+        
+        if(requiredFuel > this.fuelLevel){
+            String message = String.format("(Aircraft, ID: %s) has insufficient fuel for the journey!\n", this.getId());
+            throw new InsufficientFuelException(message);
+        } else{
             this.fuelLevel -= requiredFuel;
             return requiredFuel;
         }

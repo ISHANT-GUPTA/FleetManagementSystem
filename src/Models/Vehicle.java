@@ -1,8 +1,8 @@
 package FleetManagementSystem.src.Models;
 
 import FleetManagementSystem.src.Exceptions.InsufficientFuelException;
-
-public abstract class Vehicle {
+import java.lang.Comparable;
+public abstract class Vehicle implements Comparable<Vehicle>{
     private String id;
     private String model;
     private double maxSpeed;
@@ -44,4 +44,8 @@ public abstract class Vehicle {
         return this.model;
     }
     
+    @Override
+    public int compareTo(Vehicle other) {
+        return Double.compare(this.calculateFuelEfficiency(), other.calculateFuelEfficiency());
+    }
 }

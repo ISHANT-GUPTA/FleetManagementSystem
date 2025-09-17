@@ -11,12 +11,12 @@ import FleetManagementSystem.src.Exceptions.InvalidOperationException;
 public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier, Maintainable{
     private double fuelLevel = 0;
     private int passengerCapacity = 5;
-    private int currentPassengers;
+    private int currentPassengers=0;
     private boolean maintenanceNeeded;
 
-    public Car(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers){
+    public Car(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers) throws OverloadException{
         super(id, model, maxSpeed, numWheels, currentMileage);
-        this.currentPassengers = currentPassengers;
+        boardPassengers(currentPassengers);
     }
     
     @Override
@@ -44,8 +44,10 @@ public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier
     @Override
     public double consumeFuel(double distance) throws InsufficientFuelException{
         double requiredFuel = distance/calculateFuelEfficiency();
-        if(requiredFuel > this.fuelLevel) throw new InsufficientFuelException("Car has insufficient fuel for the journey");
-        else{
+        if(requiredFuel > this.fuelLevel){
+            String message = String.format("(Car, ID: %s) has insufficient fuel for the journey!\n", this.getId());
+            throw new InsufficientFuelException(message);
+        } else{
             this.fuelLevel -= requiredFuel;
             return requiredFuel;
         }
