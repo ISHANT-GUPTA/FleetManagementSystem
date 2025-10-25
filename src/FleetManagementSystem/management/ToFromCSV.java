@@ -106,6 +106,7 @@ public class ToFromCSV {
             }
         } catch(Exception e){
             System.out.println("Error parsing CSV line: " + line);
+            System.out.println(e);
             return null;
         }
 

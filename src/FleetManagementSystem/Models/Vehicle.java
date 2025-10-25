@@ -1,6 +1,8 @@
 package FleetManagementSystem.Models;
 
 import FleetManagementSystem.Exceptions.InsufficientFuelException;
+import FleetManagementSystem.Exceptions.InvalidOperationException;
+
 import java.lang.Comparable;
 public abstract class Vehicle implements Comparable<Vehicle>{
     private String id;
@@ -8,7 +10,10 @@ public abstract class Vehicle implements Comparable<Vehicle>{
     private double maxSpeed;
     private double currentMileage;
 
-    public Vehicle(String id, String model, double maxSpeed, double currentMileage){
+    public Vehicle(String id, String model, double maxSpeed, double currentMileage) throws InvalidOperationException{
+        if(maxSpeed<0){
+            throw new InvalidOperationException("Maximum speed cannot be less than 0!");
+        }
         this.id = id;
         this.model = model;
         this.maxSpeed = maxSpeed;

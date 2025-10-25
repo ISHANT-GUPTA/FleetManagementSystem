@@ -15,11 +15,11 @@ public class Main {
     private static void demo(FleetManager manager){
         System.out.println("===========RUNNING DEMO SCRIPT================");
         try{
-            Vehicle ship = new CargoShip("69", "Maersk", 30, 5000, false, 300);
-            Vehicle plane = new Airplane("A70", "Airbus", 700, 1000000, 23000, 190, 7500);
-            Vehicle truck = new Truck("110", "Ashok_leyland", 160, 6, 5600, 3000);
-            Vehicle bus = new Bus("111", "Tata", 200, 6, 40000, 30, 200);
-            Vehicle car = new Car("C1", "Lexus", 240, 4, 46000, 4);
+            Vehicle ship = new CargoShip("C01", "Maersk", 30, 5000, false, 300);
+            Vehicle plane = new Airplane("A01", "Airbus", 700, 1000000, 23000, 190, 7500);
+            Vehicle truck = new Truck("T01", "Ashok_leyland", 160, 6, 5600, 3000);
+            Vehicle bus = new Bus("B01", "Tata", 200, 6, 40000, 30, 200);
+            Vehicle car = new Car("c01", "Lexus", 240, 4, 46000, 4);
 
             manager.addVehicle(car);
             manager.addVehicle(truck);
@@ -64,7 +64,10 @@ public class Main {
             System.out.println("8. Load Fleet");
             System.out.println("9. Search by Type");
             System.out.println("10. List Vehicles Needing Maintenance");
-            System.out.println("11. Exit");
+            System.out.println("11. Sort fleet based on (speed/model/efficiency)");
+            System.out.println("12. View unique vehicles");
+            System.out.println("13. View fastest and slowest vehicles in the fleet");
+            System.out.println("14. Exit");
 
             System.out.print("\nEnter your choice: ");
             Scanner input = new Scanner(System.in);
@@ -165,6 +168,23 @@ public class Main {
                     break;
                     
                     case 11:
+                    System.out.print("Enter the criterion (speed/model/efficiency): ");
+                    String criterion = input.nextLine();
+                    manager.sortFleet(criterion);
+                    break;
+
+                    case 12:
+                    manager.uniqueVehicles();
+                    break;
+                    
+                    case 13:
+                    System.out.println("Fastest Vehicles:");
+                    manager.fastest();
+                    System.out.println("\n\nSlowest Vehicles:");
+                    manager.slowest();
+                    break;
+
+                    case 14:
                     continueRunning = false;
                     break;
 

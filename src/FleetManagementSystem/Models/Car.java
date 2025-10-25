@@ -14,7 +14,7 @@ public class Car extends LandVehicle implements FuelConsumable, PassengerCarrier
     private int currentPassengers=0;
     private boolean maintenanceNeeded;
 
-    public Car(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers) throws OverloadException{
+    public Car(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers) throws OverloadException, InvalidOperationException{
         super(id, model, maxSpeed, numWheels, currentMileage);
         boardPassengers(currentPassengers);
     }

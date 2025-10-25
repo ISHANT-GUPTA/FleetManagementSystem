@@ -1,9 +1,11 @@
 package FleetManagementSystem.management;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -148,6 +150,12 @@ public class FleetManager {
             System.out.printf("(%s, ID: %s)\n", vehicle.getClass().getSimpleName(), vehicle.getId());
         }
 
+        System.out.printf("\n\nUnique models: \n");
+        uniqueVehicles();
+        System.out.println("\n\nFastest Vehicles: \n");
+        fastest();
+        System.out.println("\n\nSlowest Vehicles: \n");
+        slowest();
     }
 
 
@@ -178,6 +186,81 @@ public class FleetManager {
             System.out.println("Error loading fleet: " + e.getMessage());
         }
     }
+
+    public void sortFleet(String parameter){
+        ArrayList<Vehicle> copy = new ArrayList<>(fleet);
+
+        if(parameter.equals("model")){
+            // private ArrayList<Vehicle> sortedFleet = fleet.clon
+            Collections.sort(copy, (v1, v2) -> v1.getModel().compareTo(v2.getModel()));
+        } else if(parameter.equals("speed")){
+            Collections.sort(copy, (v1, v2) -> Double.compare(v1.getMaxSpeed(), v2.getMaxSpeed()));
+        } else if(parameter.equals("efficiency")){
+            Collections.sort(copy, (v1, v2) -> Double.compare(v1.calculateFuelEfficiency(), v2.calculateFuelEfficiency()));
+        }
+
+        printFleet(copy);
+    }
+
+    
+    public void uniqueVehicles() {
+        // Create a TreeSet with a custom comparator based on Vehicle model
+        TreeSet<Vehicle> uniqueFleet = new TreeSet<>((v1, v2) -> v1.getModel().compareTo(v2.getModel()));
+
+        // Add all vehicles from the fleet
+        uniqueFleet.addAll(fleet);
+
+        printFleet(uniqueFleet);
+    }
+
+    public void fastest(){
+        List<Vehicle> fastest = new ArrayList<>();
+
+        double maxSpeed = Collections.max(fleet, (v1, v2) -> Double.compare(v1.getMaxSpeed(), v2.getMaxSpeed())).getMaxSpeed();
+
+        for(Vehicle v: fleet){
+            if(v.getMaxSpeed() == maxSpeed){
+                fastest.add(v);
+            }
+        }
+
+        printFleet(fastest);
+    }
+    
+    public void slowest(){
+        List<Vehicle> slowest = new ArrayList<>();
+
+        double minSpeed = Collections.min(fleet, (v1, v2) -> Double.compare(v1.getMaxSpeed(), v2.getMaxSpeed())).getMaxSpeed();
+
+        for(Vehicle v: fleet){
+            if(v.getMaxSpeed() == minSpeed){
+                slowest.add(v);
+            }
+        }
+
+        printFleet(slowest);
+    }
+
+
+
+    public void printFleet(Collection<Vehicle> fleet) {
+        if (fleet == null || fleet.isEmpty()) {
+            System.out.println("Fleet is empty.");
+            return;
+        }
+
+        System.out.println("\n===== Fleet List =====");
+        for (Vehicle v : fleet) {
+            String type = v.getClass().getSimpleName();
+            String id = v.getId();
+            String model = v.getModel();
+            double maxSpeed = v.getMaxSpeed();
+            double efficiency = v.calculateFuelEfficiency();
+
+            System.out.printf("Type: %s | ID: %s | Model: %s | Max Speed: %.2f | Efficiency: %.2f\n",
+                            type, id, model, maxSpeed, efficiency);
+        }
+}
 
 
 }

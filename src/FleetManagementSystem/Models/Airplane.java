@@ -17,7 +17,7 @@ public class Airplane extends AirVehicle implements FuelConsumable, PassengerCar
     private double currentCargo=0;
     private boolean maintenanceNeeded;
 
-    public Airplane(String id, String model, double maxSpeed, double currentMileage, double maxAltitude, int currentPassengers, double currentCargo) throws OverloadException{
+    public Airplane(String id, String model, double maxSpeed, double currentMileage, double maxAltitude, int currentPassengers, double currentCargo) throws OverloadException, InvalidOperationException{
         super(id, model, maxSpeed, currentMileage, maxAltitude);
         boardPassengers(currentPassengers);
         loadCargo(currentCargo);

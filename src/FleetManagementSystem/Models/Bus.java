@@ -16,7 +16,7 @@ public class Bus extends LandVehicle implements FuelConsumable, PassengerCarrier
     private double currentCargo = 0;
     private boolean maintenanceNeeded;
 
-    public Bus(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers, double currentCargo) throws OverloadException{
+    public Bus(String id, String model, double maxSpeed, int numWheels, double currentMileage, int currentPassengers, double currentCargo) throws OverloadException, InvalidOperationException{
         super(id, model, maxSpeed, numWheels, currentMileage);
         boardPassengers(currentPassengers);
         loadCargo(currentCargo);

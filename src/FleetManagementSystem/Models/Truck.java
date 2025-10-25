@@ -13,7 +13,7 @@ public class Truck extends LandVehicle implements FuelConsumable, CargoCarrier, 
     private double currentCargo=0;
     private boolean maintenanceNeeded;
 
-    public Truck(String id, String model, double maxSpeed, int numWheels, double currentMileage, double currentCargo) throws OverloadException{
+    public Truck(String id, String model, double maxSpeed, int numWheels, double currentMileage, double currentCargo) throws OverloadException, InvalidOperationException{
         super(id, model, maxSpeed, numWheels, currentMileage);
         loadCargo(currentCargo);
     }

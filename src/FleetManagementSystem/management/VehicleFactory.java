@@ -7,7 +7,7 @@ import FleetManagementSystem.Models.*;
 
 public class VehicleFactory {
 
-    public static Car createCar(Scanner input) throws OverloadException{
+    public static Car createCar(Scanner input) throws OverloadException, InvalidOperationException{
         System.out.print("Enter id, model, maxSpeed, numWheels, currentMileage, currentPassengers separated by spaces: ");
         return new Car(
             input.next(),
@@ -19,7 +19,7 @@ public class VehicleFactory {
         );
     }
 
-    public static Truck createTruck(Scanner input) throws OverloadException{
+    public static Truck createTruck(Scanner input) throws OverloadException, InvalidOperationException{
         System.out.print("Enter id, model, maxSpeed, numWheels, currentMileage, currentCargo separated by spaces: ");
         return new Truck(
             input.next(),
@@ -31,7 +31,7 @@ public class VehicleFactory {
         );
     }
 
-    public static Bus createBus(Scanner input) throws OverloadException{
+    public static Bus createBus(Scanner input) throws OverloadException, InvalidOperationException{
         System.out.print("Enter id, model, maxSpeed, numWheels, currentMileage, currentPassengers, currentCargo separated by spaces: ");
         return new Bus(
             input.next(),
@@ -44,7 +44,7 @@ public class VehicleFactory {
         );
     }
 
-    public static Airplane creatAirplane(Scanner input) throws OverloadException{
+    public static Airplane creatAirplane(Scanner input) throws OverloadException, InvalidOperationException{
         System.out.print("Enter id, model, maxSpeed, currentMileage, maxAltitude, currentPassengers, currentCargo separated by spaces: ");
         return new Airplane(
             input.next(),
@@ -57,7 +57,7 @@ public class VehicleFactory {
         );
     }
 
-    public static CargoShip createCargoShip(Scanner input) throws OverloadException{
+    public static CargoShip createCargoShip(Scanner input) throws OverloadException, InvalidOperationException{
         System.out.print("Enter id, model, maxSpeed, currentMileage, hasSail, currentCargo separated by spaces: ");
         return new CargoShip(
             input.next(),

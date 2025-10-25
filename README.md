@@ -35,11 +35,11 @@ It demonstrates object-oriented design using inheritance, interfaces, and except
 
 2. **Compile the Project:**
     ```bash
-    javac -d out src/FleetManagementSystem/**/*.java
+    javac -d out $(find src -name "*.java")
     ```
 3. **Run the application**
     ```bash
-    java -cp out FleetManagementSystem.src.Main
+    java -cp out FleetManagementSystem.Main
     ```
 4.  **Demo runs automatically**
 

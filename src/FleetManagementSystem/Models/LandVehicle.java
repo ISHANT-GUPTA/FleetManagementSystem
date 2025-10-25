@@ -1,9 +1,11 @@
 package FleetManagementSystem.Models;
 
+import FleetManagementSystem.Exceptions.InvalidOperationException;
+
 abstract class LandVehicle extends Vehicle{
     private int numWheels;
 
-    public LandVehicle(String id, String model, double maxSpeed, int numWheels, double currentMileage){
+    public LandVehicle(String id, String model, double maxSpeed, int numWheels, double currentMileage) throws InvalidOperationException{
         super(id, model, maxSpeed, currentMileage);
         this.numWheels = numWheels;
     }

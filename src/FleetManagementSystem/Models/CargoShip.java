@@ -13,7 +13,7 @@ public class CargoShip extends WaterVehicle implements CargoCarrier, Maintainabl
     private double currentCargo=0;
     private boolean maintenanceNeeded;
 
-    public CargoShip(String id, String model, double maxSpeed, double currentMileage, boolean hasSail, double currentCargo) throws OverloadException{
+    public CargoShip(String id, String model, double maxSpeed, double currentMileage, boolean hasSail, double currentCargo) throws OverloadException, InvalidOperationException{
         super(id, model, maxSpeed, currentMileage, hasSail);
         loadCargo(currentCargo);
     }
