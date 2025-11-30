@@ -1,27 +1,29 @@
 # Fleet Management System
 
-A Java-based console application for managing fleets of vehicles such as cars, trucks, buses, cargo ships, and airplanes.  
-It demonstrates object-oriented design using inheritance, interfaces, and exception handling while supporting fleet operations like adding vehicles, tracking fuel, carrying cargo, and persistence with CSV files.
+A Java-based application for managing fleets of vehicles such as cars, trucks, buses, cargo ships, and airplanes.  
+This project demonstrates object-oriented design (Inheritance, Interfaces, Polymorphism) and has been evolved into a **Multithreaded GUI Simulator** to demonstrate concurrency, thread safety, and resource sharing.
 
 ---
 
 ## 🚀 Features
-- Manage the following types of vehicles:
-  - Car
-  - Truck
-  - Bus
-  - Cargo Ship
-  - Airplane
-- Track fuel consumption, cargo capacity, and passenger capacity
-- Validate operations with custom exceptions:
-  - `InsufficientFuelException`
-  - `OverloadException`
-  - `InvalidOperationException`
-- Import/export fleet data from/to CSV files
-- Modular design with `FleetManager` and `VehicleFactory`
-- Demonstrates OOP concepts:
-  - Inheritance (`Vehicle`, `LandVehicle`, `AirVehicle`, `WaterVehicle`)
-  - Interfaces (`FuelConsumable`, `CargoCarrier`, `PassengerCarrier`, `Maintainable`)
+
+### Core OOP & Management (Assignment 1 & 2)
+- Manage various vehicle types: `Car`, `Truck`, `Bus`, `Cargo Ship`, `Airplane`.
+- Track fuel consumption, cargo capacity, and passenger capacity.
+- **Persistence:** Import/export fleet data from/to CSV files.
+- **Custom Exceptions:** `InsufficientFuelException`, `OverloadException`, `InvalidOperationException`.
+- **Modular Design:** Utilizes Factory patterns and Interfaces (`FuelConsumable`, `CargoCarrier`, `Maintainable`).
+
+### 🚦 GUI & Multithreading Simulation (Assignment 3) NEW!
+- **Swing-based GUI:** A visual dashboard (`FleetSimulatorFrame`) replacing the console loop.
+- **Multithreading:** Each vehicle runs on its own independent thread (`VehicleThread`), simulating real-time movement and fuel consumption.
+- **Race Condition Demonstration:**
+  - Simulates a "Shared Highway" resource accessed by multiple threads simultaneously.
+  - **Interactive Toggle:** A checkbox to switch between `Unsynchronized` (Buggy) and `Synchronized` (Thread-Safe) modes in real-time.
+  - **Live Statistics:** Displays "Actual Fleet Sum" vs. "Highway Distance" to visually prove data loss during race conditions.
+- **Dynamic Controls:**
+  - Start/Stop/Reset simulation.
+  - Individual "Refuel" buttons that wake up paused threads.
 
 ---
 
@@ -45,7 +47,37 @@ It demonstrates object-oriented design using inheritance, interfaces, and except
 
 ---
 
-## CLI Interface
+# 🖥️ Simulation Guide (GUI)
+Upon running the application, the Fleet Highway Simulator window will open.
+
+1. The Dashboard
+  * Top Panel: Displays global statistics.
+    * Highway Distance: The value of the shared counter (subject to race conditions).
+    * Actual Fleet Sum: The calculated ground truth (sum of all vehicle mileages).
+    * Data Lost: The difference between the two, highlighting the synchronization error.
+  * Center Panel: List of vehicles. Each row shows:
+    * Vehicle ID
+    * Real-time Fuel Level
+    * Odometer (Mileage)
+    * Refuel Button
+
+2. Demonstrating the race condition
+  1. Uncheck the "Enable Synchronization" box.
+  2. Click START SIMULATION.
+  3. Observe that Highway Distance lags behind Actual Fleet Sum. The "Data Lost" counter will increase (red text), proving that threads are overwriting each other's updates to the shared counter.
+
+3. Fixing the race condition
+  1. Check "Enable synchronization" box
+  2. The system switches to using a synchronized method for the shared counter.
+  3. Observe that the "Data Lost" counter stops increasing, and the Highway distance now tracks perfectly with the fleet sum.
+
+4. Refuelling
+  1. Vehicles consume fuel every second.
+  2. When fuel drops below 0.7L, the label turns RED.
+  3. When fuel hits 0, the vehicle thread pauses automatically.
+  4. Click the Refuel button to add fuel and instantly resume the thread.
+
+<!-- ## CLI Interface
 On running the application, first a demo script is run and then the CLI options menu shows:
 
 1. Add Vehicle
@@ -58,7 +90,7 @@ On running the application, first a demo script is run and then the CLI options 
 8. Load Fleet
 9. Search by Type
 10. List Vehicles Needing Maintenance
-11. Exit
+11. Exit -->
 
 ---
 ## 📂 Project Structure
@@ -70,31 +102,30 @@ FleetManagementSystem/
 │   ├── Models/                    
 │   │   ├── Vehicle.java
 │   │   ├── LandVehicle.java
-│   │   ├── AirVehicle.java
-│   │   ├── WaterVehicle.java
 │   │   ├── Car.java
 │   │   ├── Truck.java
-│   │   ├── Bus.java
-│   │   ├── CargoShip.java
-│   │   └── Airplane.java
+│   │   └── ... (Other models)
 │   ├── interfaces/                
 │   │   ├── FuelConsumable.java
 │   │   ├── CargoCarrier.java
-│   │   ├── PassengerCarrier.java
-│   │   └── Maintainable.java
+│   │   └── ...
 │   ├── Exceptions/                
 │   │   ├── InsufficientFuelException.java
 │   │   ├── OverloadException.java
-│   │   └── InvalidOperationException.java
-│   └── management/                
-│       ├── FleetManager.java
-│       ├── VehicleFactory.java
-│       └── ToFromCSV.java
+│   │   └── ...
+│   ├── management/                
+│   │   ├── FleetManager.java
+│   │   ├── VehicleFactory.java
+│   │   └── ToFromCSV.java
+│   ├── simulation/                
+│   │   ├── Highway.java           
+│   │   └── VehicleThread.java     
+│   └── ui/                        
+│       └── FleetSimulatorFrame.java  
 │
 │── demo_fleet.csv                 
-│── file.csv                      
 │── out/                          
-│── README.md                     
+│── README.md                   
 ```
 
 ## Fleet Manager API
